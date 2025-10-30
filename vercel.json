@@ -1,0 +1,13 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "dev": false
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "SAT English Solver AI",
+  "description": "An application that uses AI to solve SAT English questions from an image. Upload a photo of an SAT English problem, and the Gemini-powered model will provide the correct answer and a detailed explanation.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "prompt": "",
+  "env": {
+    "VERTEX_PROJECT_ID": "YOUR_VERTEX_AI_PROJECT_ID_HERE",
+    "VERTEX_LOCATION": "us-central1",
+    "MONGO_URI": "YOUR_MONGO_URI_HERE",
+    "GOOGLE_APPLICATION_CREDENTIALS_JSON": "PASTE_YOUR_ENTIRE_SERVICE_ACCOUNT_JSON_HERE",
+    "FIREBASE_API_KEY": "YOUR_FIREBASE_CLIENT_API_KEY",
+    "FIREBASE_AUTH_DOMAIN": "YOUR_FIREBASE_AUTH_DOMAIN",
+    "FIREBASE_PROJECT_ID": "YOUR_FIREBASE_PROJECT_ID",
+    "FIREBASE_STORAGE_BUCKET": "YOUR_FIREBASE_STORAGE_BUCKET",
+    "FIREBASE_MESSAGING_SENDER_ID": "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+    "FIREBASE_APP_ID": "YOUR_FIREBASE_APP_ID",
+    "FIREBASE_MEASUREMENT_ID": "YOUR_FIREBASE_MEASUREMENT_ID"
+  }
+}
