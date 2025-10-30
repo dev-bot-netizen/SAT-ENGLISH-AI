@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Custom scrollbar styles for a dark, futuristic theme */
+
+  /* For Firefox */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #B47DFF #3C1875; /* brand-lavender on brand-indigo */
+  }
+
+  /* For Webkit-based browsers (Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #3C1875; /* brand-indigo */
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #B47DFF; /* brand-lavender */
+    border-radius: 10px;
+    border: 2px solid #3C1875; /* Creates padding around thumb */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #6C40D4; /* brand-violet */
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* Disable scrolling during walkthrough */
+  body.walkthrough-active {
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  /* Special override for walkthrough */
+  body.walkthrough-start-button-step-active #walkthrough-start-button:disabled {
+    background-color: #9333ea; /* tailwind purple-600 */
+    opacity: 0.9;
+    cursor: default !important;
+  }
+}
+
+@layer utilities {
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes cap-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.9;
+    }
+  }
+
+  .academic-cap-animated {
+    animation: cap-pulse 2s ease-in-out 4.5s infinite;
+    transform-origin: center;
+  }
+
+  .academic-cap-mortarboard {
+    stroke-dasharray: 68;
+    stroke-dashoffset: 68;
+    animation: draw 2s ease-out 0.2s forwards;
+  }
+
+  .academic-cap-cap-fill {
+    stroke-dasharray: 23;
+    stroke-dashoffset: 23;
+    animation: draw 1.2s ease-out 2.2s forwards;
+  }
+
+  .academic-cap-tassel-string {
+    stroke-dasharray: 6;
+    stroke-dashoffset: 6;
+    animation: draw 0.6s ease-out 3.4s forwards;
+  }
+  
+  .academic-cap-tassel-head {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out 4s forwards;
+  }
+}
