@@ -156,5 +156,4 @@ const assignmentsHandler = async (req: VercelRequest, res: VercelResponse, user:
     res.status(404).json({ message: "Assignment route not found." });
     return;
 };
-
 export const handleAssignments = withAuth(assignmentsHandler);
