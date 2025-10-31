@@ -18,12 +18,17 @@ const BackgroundGlowWords: React.FC = () => {
   return (
     <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
       {words.map((word, i) => {
+        // Only render the more subtle "background" words to improve readability
+        if (i % 3 !== 0) {
+          return null;
+        }
+
         const top = seededRandom(i * 10) * 90 + 5; // 5% to 95%
         const left = seededRandom(i * 20) * 90 + 5; // 5% to 95%
         const size = seededRandom(i * 30) * 16 + 16; // 16px to 32px
         const delay = seededRandom(i * 40) * 20; // 0s to 20s
         const duration = seededRandom(i * 50) * 10 + 15; // 15s to 25s
-        const colorClass = i % 3 === 0 ? 'text-brand-lavender' : 'text-brand-gold';
+        const colorClass = 'text-brand-lavender';
 
         return (
           <span
