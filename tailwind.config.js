@@ -40,8 +40,8 @@ export default {
           '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
         },
         'glow-words': {
-          '0%, 100%': { opacity: 0.02, transform: 'scale(1)', textShadow: '0 0 5px currentColor' },
-          '50%': { opacity: 0.12, transform: 'scale(1.15)', textShadow: '0 0 15px currentColor' },
+          '0%, 100%': { opacity: 0.05, transform: 'scale(1)', textShadow: '0 0 5px currentColor' },
+          '50%': { opacity: 0.15, transform: 'scale(1.05)', textShadow: '0 0 15px currentColor' },
         },
       },
       animation: {
