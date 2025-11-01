@@ -109,7 +109,7 @@ const DemoSection: React.FC<DemoSectionProps> = ({ onNavigateToApp }) => {
   return (
     <section id="demo-section" ref={component} className="min-h-screen relative">
       <div className="sticky top-0 h-screen w-full flex flex-col justify-center bg-brand-indigo/50 overflow-hidden relative">
-        <BackgroundGlowWords />
+        <BackgroundGlowWords wordCount={20} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Watch AI solve real SAT questions in seconds.</h2>
