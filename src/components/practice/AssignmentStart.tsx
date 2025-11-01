@@ -1,6 +1,4 @@
 
-
-
 import React, { useState, useRef } from 'react';
 import { SpinnerIcon } from '@/components/icons/SpinnerIcon';
 import { ErrorIcon } from '@/components/icons/ErrorIcon';
@@ -53,17 +51,17 @@ const OptionCard: React.FC<{
         disabled={isDisabled}
         className={`relative w-full text-left p-3 rounded-lg border-2 text-sm transition-all duration-200 
           ${isDisabled 
-            ? 'opacity-50 cursor-not-allowed bg-slate-100 dark:bg-gray-800 border-slate-200 dark:border-gray-700' 
-            : 'bg-slate-100 dark:bg-gray-800 border-slate-200 dark:border-gray-700 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-black focus:ring-offset-white'}
-          ${isSelected ? 'border-purple-500 ring-2 ring-purple-500 bg-purple-50 dark:bg-purple-600/20' : ''}
+            ? 'opacity-50 cursor-not-allowed bg-black/20 border-brand-lavender/20' 
+            : 'bg-black/20 border-brand-lavender/30 hover:border-brand-lavender focus:outline-none focus:ring-2 focus:ring-brand-lavender focus:ring-offset-2 focus:ring-offset-brand-indigo'}
+          ${isSelected ? 'border-brand-lavender ring-2 ring-brand-lavender bg-brand-violet/30' : ''}
           ${className}
         `}
     >
-        <div className={`font-semibold ${isSelected ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-gray-300'}`}>
+        <div className={`font-semibold ${isSelected ? 'text-white' : 'text-white/80'}`}>
             {children}
         </div>
         {isSelected && (
-          <div className="absolute top-2 right-2 text-purple-500 dark:text-purple-400">
+          <div className="absolute top-2 right-2 text-brand-lavender">
             <CheckCircleIcon className="w-5 h-5" />
           </div>
         )}
@@ -130,14 +128,7 @@ const AssignmentStart: React.FC<AssignmentStartProps> = ({ onStart, isGenerating
     const isAllTopicsSelected = selectedTopics.includes('All Topics');
 
     return (
-        <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">
-                SAT English Practice Test
-            </h2>
-            <p className="text-slate-600 dark:text-gray-400 mb-8">
-                Customize your 20-question test by topic and difficulty.
-            </p>
-
+        <div className="bg-brand-lilac/5 border border-brand-lavender/20 rounded-2xl p-8 backdrop-blur-xl space-y-8">
             {testsTakenToday !== undefined && dailyTestLimit !== undefined && (
                 <TestCounter
                     testsTakenToday={testsTakenToday}
@@ -145,187 +136,184 @@ const AssignmentStart: React.FC<AssignmentStartProps> = ({ onStart, isGenerating
                 />
             )}
             
-            <div className="max-w-3xl mx-auto bg-white dark:bg-gray-900 rounded-xl border border-slate-200 dark:border-gray-800 p-6 md:p-8 backdrop-blur-sm space-y-8 mt-8">
-                
-                <fieldset id={topicsId}>
-                    <legend className="text-lg font-semibold text-slate-900 dark:text-white text-left mb-1">1. Select Topics</legend>
-                    <p className="text-sm text-slate-600 dark:text-gray-400 text-left mb-4">Choose 'All Topics' or select up to 3 specific topics.</p>
-                    <div className="space-y-3">
-                         <OptionCard
-                            onClick={() => handleTopicClick('All Topics')}
-                            isSelected={isAllTopicsSelected}
-                        >
-                            All Topics
-                        </OptionCard>
+            <fieldset id={topicsId}>
+                <legend className="text-lg font-semibold text-white text-left mb-1">1. Select Topics</legend>
+                <p className="text-sm text-white/70 text-left mb-4">Choose 'All Topics' or select up to 3 specific topics.</p>
+                <div className="space-y-3">
+                     <OptionCard
+                        onClick={() => handleTopicClick('All Topics')}
+                        isSelected={isAllTopicsSelected}
+                    >
+                        All Topics
+                    </OptionCard>
 
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
-                            {SAT_TOPICS.map(topic => (
-                                <OptionCard
-                                    key={topic}
-                                    onClick={() => handleTopicClick(topic)}
-                                    isSelected={selectedTopics.includes(topic)}
-                                    isDisabled={isAllTopicsSelected}
-                                >
-                                    {topic}
-                                </OptionCard>
-                            ))}
-                        </div>
-                    </div>
-                    {topicError && <p className="text-red-500 dark:text-red-400 text-sm mt-2 text-left">{topicError}</p>}
-                </fieldset>
-                
-                <fieldset id={difficultyId}>
-                    <legend className="text-lg font-semibold text-slate-900 dark:text-white text-left mb-3">2. Choose Difficulty</legend>
-                     <div className="grid grid-cols-3 gap-3">
-                        {DIFFICULTIES.map(({label, value}) => (
-                             <OptionCard
-                                key={value}
-                                onClick={() => setSelectedDifficulty(value)}
-                                isSelected={selectedDifficulty === value}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+                        {SAT_TOPICS.map(topic => (
+                            <OptionCard
+                                key={topic}
+                                onClick={() => handleTopicClick(topic)}
+                                isSelected={selectedTopics.includes(topic)}
+                                isDisabled={isAllTopicsSelected}
                             >
-                                {label}
+                                {topic}
                             </OptionCard>
                         ))}
                     </div>
-                </fieldset>
+                </div>
+                {topicError && <p className="text-red-500 text-sm mt-2 text-left">{topicError}</p>}
+            </fieldset>
+            
+            <fieldset id={difficultyId}>
+                <legend className="text-lg font-semibold text-white text-left mb-3">2. Choose Difficulty</legend>
+                 <div className="grid grid-cols-3 gap-3">
+                    {DIFFICULTIES.map(({label, value}) => (
+                         <OptionCard
+                            key={value}
+                            onClick={() => setSelectedDifficulty(value)}
+                            isSelected={selectedDifficulty === value}
+                        >
+                            {label}
+                        </OptionCard>
+                    ))}
+                </div>
+            </fieldset>
 
-                <fieldset>
-                    <legend className="text-lg font-semibold text-slate-900 dark:text-white text-left mb-3">3. Set Time Limit</legend>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup">
-                        {TIME_OPTIONS.map(({id, label, minutes}) => (
-                            <label key={id} className="cursor-pointer">
-                                 <input 
-                                    type="radio" 
-                                    name="timeOption" 
-                                    value={id} 
-                                    checked={timeOption === id} 
-                                    onChange={() => setTimeOption(id as 'standard' | 'extended')} 
-                                    className="sr-only"
-                                />
-                                <div className={`relative w-full text-left p-3 rounded-lg border-2 text-sm transition-all duration-200 
-                                    ${'bg-slate-100 dark:bg-gray-800 border-slate-200 dark:border-gray-700 hover:border-purple-500'}
-                                    ${timeOption === id ? 'border-purple-500 ring-2 ring-purple-500 bg-purple-50 dark:bg-purple-600/20' : ''}
-                                `}>
-                                    <p className={`font-semibold ${timeOption === id ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-gray-300'}`}>{label}</p>
-                                    <p className="text-sm text-slate-500 dark:text-gray-400">{minutes} Minutes</p>
-                                    {timeOption === id && (
-                                        <div className="absolute top-2 right-2 text-purple-500 dark:text-purple-400">
-                                            <CheckCircleIcon className="w-5 h-5" />
-                                        </div>
-                                    )}
-                                </div>
-                            </label>
-                        ))}
-                         <label className="cursor-pointer" onClick={() => customTimeInputRef.current?.focus()}>
-                            <input
-                                type="radio"
-                                name="timeOption"
-                                value="custom"
-                                checked={timeOption === 'custom'}
-                                onChange={() => setTimeOption('custom')}
+            <fieldset>
+                <legend className="text-lg font-semibold text-white text-left mb-3">3. Set Time Limit</legend>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup">
+                    {TIME_OPTIONS.map(({id, label, minutes}) => (
+                        <label key={id} className="cursor-pointer">
+                             <input 
+                                type="radio" 
+                                name="timeOption" 
+                                value={id} 
+                                checked={timeOption === id} 
+                                onChange={() => setTimeOption(id as 'standard' | 'extended')} 
                                 className="sr-only"
                             />
                             <div className={`relative w-full text-left p-3 rounded-lg border-2 text-sm transition-all duration-200 
-                                ${'bg-slate-100 dark:bg-gray-800 border-slate-200 dark:border-gray-700 hover:border-purple-500'}
-                                ${timeOption === 'custom' ? 'border-purple-500 ring-2 ring-purple-500 bg-purple-50 dark:bg-purple-600/20' : ''}
+                                ${'bg-black/20 border-brand-lavender/30 hover:border-brand-lavender'}
+                                ${timeOption === id ? 'border-brand-lavender ring-2 ring-brand-lavender bg-brand-violet/30' : ''}
                             `}>
-                                <p className={`font-semibold ${timeOption === 'custom' ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-gray-300'}`}>Custom</p>
-                                <div className="flex items-baseline space-x-2 text-sm text-slate-500 dark:text-gray-400">
-                                    <input
-                                        ref={customTimeInputRef}
-                                        type="number"
-                                        id="custom-time-input"
-                                        value={customTime}
-                                        onFocus={() => setTimeOption('custom')}
-                                        onChange={(e) => {
-                                            setTimeOption('custom');
-                                            setCustomTime(e.target.value);
-                                        }}
-                                        min="1"
-                                        step="0.5"
-                                        className="bg-transparent font-sans text-slate-900 dark:text-white text-sm w-full focus:outline-none placeholder-slate-500 p-0 m-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                        placeholder="e.g., 20.5"
-                                        aria-label="Custom time in minutes"
-                                    />
-                                    <span className="text-sm text-slate-500 dark:text-gray-400">Minutes</span>
-                                </div>
-                                {timeOption === 'custom' && (
-                                    <div className="absolute top-2 right-2 text-purple-500 dark:text-purple-400">
+                                <p className={`font-semibold ${timeOption === id ? 'text-white' : 'text-white/80'}`}>{label}</p>
+                                <p className="text-sm text-white/60">{minutes} Minutes</p>
+                                {timeOption === id && (
+                                    <div className="absolute top-2 right-2 text-brand-lavender">
                                         <CheckCircleIcon className="w-5 h-5" />
                                     </div>
                                 )}
                             </div>
                         </label>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend className="text-lg font-semibold text-slate-900 dark:text-white text-left mb-3">4. Test Security</legend>
-                    <label className="flex items-center justify-between p-3 rounded-lg border-2 bg-slate-100 dark:bg-gray-800 border-slate-200 dark:border-gray-700">
-                        <div>
-                            <p className="font-semibold text-slate-900 dark:text-white">Enable Lockdown Mode</p>
-                            <p className="text-sm text-slate-600 dark:text-gray-400">Prevents leaving the tab. A second attempt will auto-submit the test.</p>
+                    ))}
+                     <label className="cursor-pointer" onClick={() => customTimeInputRef.current?.focus()}>
+                        <input
+                            type="radio"
+                            name="timeOption"
+                            value="custom"
+                            checked={timeOption === 'custom'}
+                            onChange={() => setTimeOption('custom')}
+                            className="sr-only"
+                        />
+                        <div className={`relative w-full text-left p-3 rounded-lg border-2 text-sm transition-all duration-200 
+                            ${'bg-black/20 border-brand-lavender/30 hover:border-brand-lavender'}
+                            ${timeOption === 'custom' ? 'border-brand-lavender ring-2 ring-brand-lavender bg-brand-violet/30' : ''}
+                        `}>
+                            <p className={`font-semibold ${timeOption === 'custom' ? 'text-white' : 'text-white/80'}`}>Custom</p>
+                            <div className="flex items-baseline space-x-2 text-sm text-white/60">
+                                <input
+                                    ref={customTimeInputRef}
+                                    type="number"
+                                    id="custom-time-input"
+                                    value={customTime}
+                                    onFocus={() => setTimeOption('custom')}
+                                    onChange={(e) => {
+                                        setTimeOption('custom');
+                                        setCustomTime(e.target.value);
+                                    }}
+                                    min="1"
+                                    step="0.5"
+                                    className="bg-transparent font-sans text-white text-sm w-full focus:outline-none placeholder-white/40 p-0 m-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                    placeholder="e.g., 20.5"
+                                    aria-label="Custom time in minutes"
+                                />
+                                <span className="text-sm text-white/60">Minutes</span>
+                            </div>
+                            {timeOption === 'custom' && (
+                                <div className="absolute top-2 right-2 text-brand-lavender">
+                                    <CheckCircleIcon className="w-5 h-5" />
+                                </div>
+                            )}
                         </div>
-                        <button
-                            onClick={() => setLockdownEnabled(prev => !prev)}
-                            role="switch"
-                            aria-checked={lockdownEnabled}
-                            className={`relative inline-flex items-center h-6 rounded-full w-11 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900 focus:ring-offset-white focus:ring-purple-500 ${lockdownEnabled ? 'bg-purple-600' : 'bg-slate-300 dark:bg-gray-600'}`}
-                        >
-                            <span
-                                className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform duration-200 ${lockdownEnabled ? 'translate-x-6' : 'translate-x-1'}`}
-                            />
-                        </button>
                     </label>
-                </fieldset>
+                </div>
+            </fieldset>
 
-                <fieldset>
-                    <legend className="text-lg font-semibold text-slate-900 dark:text-white text-left mb-2">5. Customizations (Optional)</legend>
-                     <p className="text-sm text-slate-600 dark:text-gray-400 text-left mb-4">
-                        Provide a prompt to further tailor your test questions.
-                    </p>
-                    <textarea
-                        id="customizations"
-                        value={customizations}
-                        onChange={(e) => setCustomizations(e.target.value)}
-                        className="w-full bg-slate-100 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 rounded-lg px-3 py-2 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        placeholder='e.g., "Generate questions about marine biology" or "Focus on punctuation rules for dialogue."'
-                        rows={3}
-                        aria-label="Custom instructions for test generation"
-                    />
-                </fieldset>
-
-                {error && (
-                    <div className="my-4 p-3 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-300 rounded-lg flex items-center justify-center space-x-2">
-                        <ErrorIcon className="w-5 h-5" />
-                        <span>{error}</span>
+            <fieldset>
+                <legend className="text-lg font-semibold text-white text-left mb-3">4. Test Security</legend>
+                <label className="flex items-center justify-between p-3 rounded-lg border-2 bg-black/20 border-brand-lavender/30">
+                    <div>
+                        <p className="font-semibold text-white">Enable Lockdown Mode</p>
+                        <p className="text-sm text-white/70">Prevents leaving the tab. A second attempt will auto-submit the test.</p>
                     </div>
+                    <button
+                        onClick={() => setLockdownEnabled(prev => !prev)}
+                        role="switch"
+                        aria-checked={lockdownEnabled}
+                        className={`relative inline-flex items-center h-6 rounded-full w-11 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-indigo focus:ring-brand-lavender ${lockdownEnabled ? 'bg-brand-violet' : 'bg-brand-lavender/20'}`}
+                    >
+                        <span
+                            className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform duration-200 ${lockdownEnabled ? 'translate-x-6' : 'translate-x-1'}`}
+                        />
+                    </button>
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend className="text-lg font-semibold text-white text-left mb-2">5. Customizations (Optional)</legend>
+                 <p className="text-sm text-white/70 text-left mb-4">
+                    Provide a prompt to further tailor your test questions.
+                </p>
+                <textarea
+                    id="customizations"
+                    value={customizations}
+                    onChange={(e) => setCustomizations(e.target.value)}
+                    className="w-full bg-black/20 border border-brand-lavender/30 rounded-lg px-3 py-2 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-brand-lavender"
+                    placeholder='e.g., "Generate questions about marine biology" or "Focus on punctuation rules for dialogue."'
+                    rows={3}
+                    aria-label="Custom instructions for test generation"
+                />
+            </fieldset>
+
+            {error && (
+                <div className="my-4 p-3 bg-red-900/50 border border-red-700 text-red-300 rounded-lg flex items-center justify-center space-x-2">
+                    <ErrorIcon className="w-5 h-5" />
+                    <span>{error}</span>
+                </div>
+            )}
+            
+            <button
+                id={startButtonId}
+                onClick={handleStartClick}
+                disabled={!canStart}
+                className="w-full bg-brand-violet text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-lavender hover:text-brand-indigo disabled:bg-brand-lavender/20 disabled:text-white/50 disabled:cursor-not-allowed transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-brand-lavender focus:ring-offset-2 focus:ring-offset-brand-indigo flex items-center justify-center space-x-2"
+            >
+                {isGenerating ? (
+                    <>
+                        <SpinnerIcon className="w-5 h-5"/>
+                        <span>Generating Your Test...</span>
+                    </>
+                ) : (
+                    <span>Start Assignment</span>
                 )}
-                
-                <button
-                    id={startButtonId}
-                    onClick={handleStartClick}
-                    disabled={!canStart}
-                    className="w-full bg-purple-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-purple-500 disabled:bg-slate-400 dark:disabled:bg-gray-700 disabled:cursor-not-allowed transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-black flex items-center justify-center space-x-2"
-                >
-                    {isGenerating ? (
-                        <>
-                            <SpinnerIcon className="w-5 h-5"/>
-                            <span>Generating Your Test...</span>
-                        </>
-                    ) : (
-                        <span>Start Assignment</span>
-                    )}
-                </button>
-                 {!canStart && !isGenerating && (
-                    <p className="text-sm text-slate-500 dark:text-gray-400 mt-2">
-                        {timeOption === 'custom' && !isCustomTimeValid 
-                            ? 'Please enter a valid custom time (e.g., 20.5).'
-                            : 'Please select topics and a difficulty level to begin.'
-                        }
-                    </p>
-                )}
-            </div>
+            </button>
+             {!canStart && !isGenerating && (
+                <p className="text-sm text-white/60 mt-2 text-center">
+                    {timeOption === 'custom' && !isCustomTimeValid 
+                        ? 'Please enter a valid custom time (e.g., 20.5).'
+                        : 'Please select topics and a difficulty level to begin.'
+                    }
+                </p>
+            )}
         </div>
     );
 };
