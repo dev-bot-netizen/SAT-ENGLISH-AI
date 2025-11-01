@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
 
+// Expanded and shuffled list for more variety
 const words = [
-  'Syntax', 'Inference', 'Rhetoric', 'Gemini', 'Analysis', 'SAT', 
-  'Grammar', 'Punctuation', 'Context', 'Thesis', 'Clause', 'Modifier', 
-  'Cohesion', 'Logic', 'AI Tutor', 'Score', 'Practice', 'Vocabulary',
-  'Passage', 'Evidence', 'Claim', 'Transition', 'Structure', 'Purpose', 
-  'Author', 'Tone', 'Style'
+  'SAT', 'Syntax', 'Gemini', 'Vocabulary', 'Inference', 'Clause', 'Analysis', 
+  'Rhetoric', 'Practice', 'Grammar', 'Punctuation', 'Protagonist', 'Context', 
+  'Thesis', 'Figurative', 'Modifier', 'Cohesion', 'Logic', 'AI Tutor', 'Score', 
+  'Passage', 'Evidence', 'Diction', 'Claim', 'Transition', 'Structure', 'Purpose', 
+  'Author', 'Tone', 'Style', 'Connotation', 'Denotation', 'Metaphor', 'Simile', 
+  'Antagonist', 'Exposition', 'Climax', 'Resolution', 'Imagery'
 ];
 
 // A simple seeded pseudo-random number generator for deterministic positioning
@@ -20,12 +22,18 @@ interface WordStyle {
     className: string;
 }
 
-const BackgroundGlowWords: React.FC = () => {
+interface BackgroundGlowWordsProps {
+    wordCount?: number;
+}
+
+const BackgroundGlowWords: React.FC<BackgroundGlowWordsProps> = ({ wordCount = words.length }) => {
     const styledWords = useMemo(() => {
-        // This array will hold the final, calculated styles for each word.
         const finalizedWords: WordStyle[] = [];
 
-        words.forEach((word, i) => {
+        // Take a subset of words based on the prop
+        const wordsToRender = words.slice(0, Math.min(wordCount, words.length));
+
+        wordsToRender.forEach((word, i) => {
             const seed = i * 1.618; // Use a seed for deterministic randomness
             
             // 1. Calculate all random values before creating the element object
@@ -40,13 +48,13 @@ const BackgroundGlowWords: React.FC = () => {
             }
 
             const size = seededRandom(seed * 30) * 16 + 16; // 16px to 32px
-            const delay = seededRandom(seed * 40) * 20; // 0s to 20s
+            const delay = seededRandom(seed * 40) * 5; // 0s to 5s (FASTER)
             const duration = seededRandom(seed * 50) * 10 + 15; // 15s to 25s
             
             // 2. Determine color class
             const colorClass = seededRandom(seed * 5) > 0.25 ? 'text-brand-lavender' : 'text-brand-gold';
 
-            // 3. Finalize and store the style and class objects. No DOM elements are created here.
+            // 3. Finalize and store the style and class objects.
             finalizedWords.push({
                 word: word,
                 style: {
@@ -61,7 +69,7 @@ const BackgroundGlowWords: React.FC = () => {
         });
 
         return finalizedWords;
-    }, []); // Empty dependency array ensures this calculation runs only once.
+    }, [wordCount]);
 
     // 4. Render the elements using the pre-calculated, finalized styles.
     return (
