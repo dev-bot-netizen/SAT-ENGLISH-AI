@@ -90,6 +90,7 @@ const App: React.FC = () => {
         setUserProfile(null);
         setGuestFeedbackData(getGuestFeedbackData());
         setAuthLoading(false);
+        setShowApp(false); // On logout or initial load without a user, go to landing.
       }
     });
     return () => unsubscribe();
@@ -131,12 +132,11 @@ const App: React.FC = () => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      setUser(null);
-      setUserProfile(null);
+      // The onAuthStateChanged listener will handle setting the user, profile,
+      // and showApp states to redirect to the landing page.
       setIsGuest(false);
       setPage('solver');
       setError(null);
-      setShowApp(false); // Go back to landing page on sign out
     } catch (error) {
       console.error("Error signing out:", error);
     }
