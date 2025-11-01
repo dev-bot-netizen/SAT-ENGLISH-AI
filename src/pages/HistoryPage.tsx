@@ -92,58 +92,56 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ user, isGuest, onResumeAssign
         summaries: PastAssignmentSummary[];
         isPausedList: boolean;
     }> = ({ summaries, isPausedList }) => (
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-slate-200 dark:border-gray-800 backdrop-blur-sm">
-            <ul className="divide-y divide-slate-200 dark:divide-gray-800">
-                {summaries.map((summary) => (
-                    <li key={summary.id} className="flex justify-between items-center p-4 sm:p-6">
-                        <div className="flex-1">
-                            <p className="font-semibold text-slate-900 dark:text-white capitalize">
-                                {summary.name}
-                            </p>
-                            <p className="text-sm text-slate-600 dark:text-gray-400">
-                                {isPausedList ? 'Paused on ' : 'Completed on '}
-                                {summary.dateCompleted.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                                {' \u2022 '}
-                                Difficulty: {DIFFICULTIES[summary.difficulty] || 'N/A'}
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-4 ml-4">
-                            {!isPausedList && (
-                                <div className="text-right">
-                                    <p className="text-xl font-bold text-purple-600 dark:text-purple-400">
-                                        {summary.score} <span className="text-base text-slate-500 dark:text-gray-400">/ {summary.totalQuestions}</span>
-                                    </p>
-                                    <p className="text-sm text-slate-500 dark:text-gray-500">
-                                        {Math.round((summary.score / summary.totalQuestions) * 100)}%
-                                    </p>
-                                </div>
-                            )}
-                             {isPausedList ? (
-                                <button
-                                    onClick={() => onResumeAssignment(summary.id)}
-                                    className="bg-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-500 transition-colors"
-                                >
-                                    Resume
-                                </button>
-                            ) : (
-                                <button
-                                    onClick={() => handleSelectAssignment(summary)}
-                                    className="bg-slate-100 dark:bg-gray-700 text-slate-900 dark:text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-600 transition-colors"
-                                >
-                                    Review
-                                </button>
-                            )}
-                        </div>
-                    </li>
-                ))}
-            </ul>
+        <div className="space-y-4">
+            {summaries.map((summary) => (
+                <div key={summary.id} className="bg-black/20 border border-brand-lavender/20 rounded-xl flex flex-col sm:flex-row justify-between items-center p-4 sm:p-6 gap-4">
+                    <div className="flex-1 text-center sm:text-left">
+                        <p className="font-semibold text-white capitalize text-lg">
+                            {summary.name}
+                        </p>
+                        <p className="text-sm text-white/60">
+                            {isPausedList ? 'Paused on ' : 'Completed on '}
+                            {summary.dateCompleted.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                            {' \u2022 '}
+                            Difficulty: {DIFFICULTIES[summary.difficulty] || 'N/A'}
+                        </p>
+                    </div>
+                    <div className="flex items-center gap-4 ml-4 flex-shrink-0">
+                        {!isPausedList && (
+                            <div className="text-right">
+                                <p className="text-xl font-bold text-brand-lavender">
+                                    {summary.score} <span className="text-base text-white/60">/ {summary.totalQuestions}</span>
+                                </p>
+                                <p className="text-sm text-white/50">
+                                    {Math.round((summary.score / summary.totalQuestions) * 100)}%
+                                </p>
+                            </div>
+                        )}
+                         {isPausedList ? (
+                            <button
+                                onClick={() => onResumeAssignment(summary.id)}
+                                className="bg-brand-violet text-white font-bold py-2 px-4 rounded-lg hover:bg-brand-lavender hover:text-brand-indigo transition-colors"
+                            >
+                                Resume
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => handleSelectAssignment(summary)}
+                                className="bg-white/10 text-white font-bold py-2 px-4 rounded-lg hover:bg-white/20 transition-colors"
+                            >
+                                Review
+                            </button>
+                        )}
+                    </div>
+                </div>
+            ))}
         </div>
     );
 
     if (isLoading && !selectedAssignment) {
         return (
-            <div className="flex flex-col items-center justify-center text-slate-500 dark:text-gray-400 py-16">
-                <SpinnerIcon className="w-10 h-10 text-purple-500 mb-4" />
+            <div className="flex flex-col items-center justify-center text-white/70 py-16">
+                <SpinnerIcon className="w-10 h-10 text-brand-lavender mb-4" />
                 <p>Loading your assignment history...</p>
             </div>
         );
@@ -151,7 +149,7 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ user, isGuest, onResumeAssign
     
     if (error) {
         return (
-            <div className="p-4 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-300 rounded-lg flex items-center justify-center space-x-2">
+            <div className="p-4 bg-red-900/50 border border-red-700 text-red-300 rounded-lg flex items-center justify-center space-x-2">
                 <ErrorIcon className="w-5 h-5" />
                 <span>{error}</span>
             </div>
@@ -180,11 +178,11 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ user, isGuest, onResumeAssign
     if (pausedAssignments.length === 0 && completedAssignments.length === 0) {
         return (
              <div className="text-center py-16">
-                <ClockIcon className="w-12 h-12 text-slate-400 dark:text-gray-500 mx-auto mb-4" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">No History Yet</h2>
-                <p className="text-slate-600 dark:text-gray-400 mt-2">Complete a practice test to see your results here.</p>
+                <ClockIcon className="w-12 h-12 text-brand-lavender/50 mx-auto mb-4" />
+                <h2 className="text-2xl font-bold text-white">No History Yet</h2>
+                <p className="text-white/70 mt-2">Complete a practice test to see your results here.</p>
                  {isGuest && (
-                    <p className="text-sm text-slate-500 dark:text-gray-500 mt-4">Note: Guest history is saved on this device only.</p>
+                    <p className="text-sm text-white/50 mt-4">Note: Guest history is saved on this device only.</p>
                 )}
             </div>
         );
@@ -193,24 +191,24 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ user, isGuest, onResumeAssign
     return (
         <div className="space-y-10">
             <div className="text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
                     Assignment History
                 </h2>
-                <p className="text-slate-600 dark:text-gray-400">
+                <p className="text-white/70">
                     Review your past practice tests to track your progress.
                      {isGuest && (
-                        <span className="block text-sm text-gray-500 mt-1">Your guest history is saved on this device only.</span>
+                        <span className="block text-sm text-white/50 mt-1">Your guest history is saved on this device only.</span>
                     )}
                 </p>
             </div>
             
             <div className="flex justify-center mb-0">
-                <div className="flex p-1 bg-slate-100 dark:bg-gray-800 rounded-lg border border-slate-200 dark:border-gray-700 space-x-1">
+                <div className="flex p-1 bg-black/20 rounded-lg border border-brand-lavender/20 space-x-1">
                     {SORT_OPTIONS.map(({ key, label }) => (
                          <button
                             key={key}
                             onClick={() => setSortKey(key)}
-                            className={`px-4 py-2 text-sm font-semibold rounded-md transition-colors ${sortKey === key ? 'bg-purple-600 text-white' : 'text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-gray-700'}`}
+                            className={`px-4 py-2 text-sm font-semibold rounded-md transition-colors ${sortKey === key ? 'bg-brand-violet text-white' : 'text-white/80 hover:bg-white/10'}`}
                             aria-pressed={sortKey === key}
                         >
                             {label}
@@ -220,15 +218,15 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ user, isGuest, onResumeAssign
             </div>
 
             {sortedPausedAssignments.length > 0 && (
-                <div className="space-y-4">
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Paused Assignments</h3>
+                <div>
+                    <h3 className="text-2xl font-bold text-white mb-4">Paused Assignments</h3>
                     <AssignmentList summaries={sortedPausedAssignments} isPausedList={true} />
                 </div>
             )}
             
             {sortedCompletedAssignments.length > 0 && (
-                <div className="space-y-4">
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Completed Assignments</h3>
+                <div>
+                    <h3 className="text-2xl font-bold text-white mb-4">Completed Assignments</h3>
                     <AssignmentList summaries={sortedCompletedAssignments} isPausedList={false} />
                 </div>
             )}
