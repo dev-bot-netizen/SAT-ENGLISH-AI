@@ -8,10 +8,10 @@ const words = [
   'Author', 'Tone', 'Style'
 ];
 
-// Simple deterministic pseudo-random number generator
-const seededRandom = (seed: number) => {
-    const x = Math.sin(seed) * 10000;
-    return x - Math.floor(x);
+// A simple seeded pseudo-random number generator for deterministic positioning
+const seededRandom = (seed: number): number => {
+    const s = Math.sin(seed) * 10000;
+    return s - Math.floor(s);
 };
 
 interface WordStyle {
@@ -21,42 +21,49 @@ interface WordStyle {
 }
 
 const BackgroundGlowWords: React.FC = () => {
-    const styledWords = useMemo((): WordStyle[] => {
-        // All CSS positioning and details are randomized and finalized here,
-        // before any DOM elements are created.
-        return words.map((word, i) => {
-            const seed = i + 1; // Use non-zero seed
+    const styledWords = useMemo(() => {
+        // This array will hold the final, calculated styles for each word.
+        const finalizedWords: WordStyle[] = [];
 
-            // Position words on the horizontal peripheries to avoid overlapping centered content
-            const onLeftSide = seededRandom(seed * 10) > 0.5;
-            const left = onLeftSide
-                ? seededRandom(seed * 20) * 30 // 0% to 30%
-                : 70 + seededRandom(seed * 30) * 30; // 70% to 100%
+        words.forEach((word, i) => {
+            const seed = i * 1.618; // Use a seed for deterministic randomness
+            
+            // 1. Calculate all random values before creating the element object
+            const top = seededRandom(seed * 10) * 90 + 5; // 5% to 95%
+            
+            let left;
+            // Place words on horizontal peripheries to avoid overlapping centered content
+            if (seededRandom(seed) > 0.5) {
+                left = seededRandom(seed + 1) * 30; // Left side: 0% to 30%
+            } else {
+                left = 70 + seededRandom(seed + 2) * 30; // Right side: 70% to 100%
+            }
 
-            const top = seededRandom(seed * 40) * 90 + 5; // 5% to 95%
-            const size = seededRandom(seed * 50) * 16 + 16; // 16px to 32px
-            const rotation = seededRandom(seed * 60) * 20 - 10; // -10deg to 10deg
-            const delay = seededRandom(seed * 70) * 20; // 0s to 20s
-            const duration = seededRandom(seed * 80) * 10 + 15; // 15s to 25s
+            const size = seededRandom(seed * 30) * 16 + 16; // 16px to 32px
+            const delay = seededRandom(seed * 40) * 20; // 0s to 20s
+            const duration = seededRandom(seed * 50) * 10 + 15; // 15s to 25s
+            
+            // 2. Determine color class
+            const colorClass = seededRandom(seed * 5) > 0.25 ? 'text-brand-lavender' : 'text-brand-gold';
 
-            // Use mostly lavender words, with some gold ones for accent
-            const colorClass = i % 3 !== 0 ? 'text-brand-lavender' : 'text-brand-gold';
-
-            return {
+            // 3. Finalize and store the style and class objects. No DOM elements are created here.
+            finalizedWords.push({
                 word: word,
                 style: {
-                    top: `${top}%`,
-                    left: `${left}%`,
-                    fontSize: `${size}px`,
-                    '--rotation-deg': `${rotation}deg`, // CSS variable for animation
-                    animationDelay: `${delay}s`,
-                    animationDuration: `${duration}s`,
-                } as React.CSSProperties,
+                  top: `${top}%`,
+                  left: `${left}%`,
+                  fontSize: `${size}px`,
+                  animationDelay: `${delay}s`,
+                  animationDuration: `${duration}s`,
+                },
                 className: `absolute font-semibold animate-glow-words ${colorClass}`
-            };
+            });
         });
-    }, []);
 
+        return finalizedWords;
+    }, []); // Empty dependency array ensures this calculation runs only once.
+
+    // 4. Render the elements using the pre-calculated, finalized styles.
     return (
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
             {styledWords.map(({ word, style, className }, i) => (
