@@ -41,9 +41,9 @@ const GeneratingTestView: React.FC<GeneratingTestViewProps> = ({ title }) => {
 
     return (
         <div className="text-center py-16">
-            <ProgressiveAcademicCapIcon className="w-16 h-16 text-purple-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{title}</h2>
-            <p className="text-slate-600 dark:text-gray-300 mt-2 min-h-[1.5em]">{loadingMessage}</p>
+            <ProgressiveAcademicCapIcon className="w-16 h-16 text-brand-lavender mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-white">{title}</h2>
+            <p className="text-white/70 mt-2 min-h-[1.5em]">{loadingMessage}</p>
         </div>
     );
 };
