@@ -56,7 +56,11 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ user, isGuest, onResumeAssign
         return [...assignments].sort((a, b) => {
             switch (key) {
                 case 'topic':
-                    return a.name.localeCompare(b.name);
+                    // Sort topics alphabetically before joining to ensure consistent sorting
+                    // for assignments with the same topics in a different order.
+                    const topicsA = [...a.topics].sort().join(', ');
+                    const topicsB = [...b.topics].sort().join(', ');
+                    return topicsA.localeCompare(topicsB);
                 case 'difficulty':
                     return a.difficulty - b.difficulty;
                 case 'date':
@@ -94,7 +98,7 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ user, isGuest, onResumeAssign
     }> = ({ summaries, isPausedList }) => (
         <div className="space-y-4">
             {summaries.map((summary) => (
-                <div key={summary.id} className="bg-black/20 border border-brand-lavender/20 rounded-xl flex flex-col sm:flex-row justify-between items-center p-4 sm:p-6 gap-4">
+                <div key={summary.id} className="bg-brand-lilac/5 border border-brand-lavender/20 rounded-xl flex flex-col sm:flex-row justify-between items-center p-4 sm:p-6 gap-4 backdrop-blur-sm hover:border-brand-lavender/50 transition-colors">
                     <div className="flex-1 text-center sm:text-left">
                         <p className="font-semibold text-white capitalize text-lg">
                             {summary.name}
@@ -113,7 +117,7 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ user, isGuest, onResumeAssign
                                     {summary.score} <span className="text-base text-white/60">/ {summary.totalQuestions}</span>
                                 </p>
                                 <p className="text-sm text-white/50">
-                                    {Math.round((summary.score / summary.totalQuestions) * 100)}%
+                                    {summary.totalQuestions > 0 ? Math.round((summary.score / summary.totalQuestions) * 100) : 0}%
                                 </p>
                             </div>
                         )}
@@ -219,14 +223,14 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ user, isGuest, onResumeAssign
 
             {sortedPausedAssignments.length > 0 && (
                 <div>
-                    <h3 className="text-2xl font-bold text-white mb-4">Paused Assignments</h3>
+                    <h3 className="text-2xl font-bold text-white mb-4 mt-8">Paused Assignments</h3>
                     <AssignmentList summaries={sortedPausedAssignments} isPausedList={true} />
                 </div>
             )}
             
             {sortedCompletedAssignments.length > 0 && (
                 <div>
-                    <h3 className="text-2xl font-bold text-white mb-4">Completed Assignments</h3>
+                    <h3 className="text-2xl font-bold text-white mb-4 mt-8">Completed Assignments</h3>
                     <AssignmentList summaries={sortedCompletedAssignments} isPausedList={false} />
                 </div>
             )}
