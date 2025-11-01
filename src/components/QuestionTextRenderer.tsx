@@ -1,3 +1,4 @@
+
 import React from 'react';
 import type { Highlight } from '@/types';
 import ReactMarkdown from 'react-markdown';
@@ -104,7 +105,7 @@ const QuestionTextRenderer: React.FC<QuestionTextRendererProps> = ({ text, highl
   }
 
   return (
-    <div className="text-slate-800 dark:text-gray-200 whitespace-pre-line mb-6">
+    <div className="text-white/90 whitespace-pre-line mb-6">
       {renderContent()}
     </div>
   );
