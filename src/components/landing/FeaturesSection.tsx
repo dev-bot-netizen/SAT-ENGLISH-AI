@@ -172,7 +172,7 @@ const FeaturesSection: React.FC = () => {
 
     return (
         <section ref={component} className="relative py-20 sm:py-24 lg:py-32 bg-brand-indigo overflow-hidden">
-            <BackgroundGlowWords />
+            <BackgroundGlowWords wordCount={35} />
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-3xl mx-auto" data-anim-section>
                     <h2 data-anim className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">The AI Tutor That Adapts to You</h2>
