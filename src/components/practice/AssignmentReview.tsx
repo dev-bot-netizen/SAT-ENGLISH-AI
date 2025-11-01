@@ -156,11 +156,11 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
             
             <div className="space-y-6">
                  <div className="flex justify-between items-center">
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Review Your Answers</h2>
+                    <h2 className="text-2xl font-bold text-white">Review Your Answers</h2>
                     {onBack && !onRestart && (
                         <button
                             onClick={onBack}
-                            className="inline-flex items-center space-x-2 bg-slate-200 dark:bg-gray-700 text-slate-800 dark:text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-300 dark:hover:bg-gray-600 transition-colors"
+                            className="inline-flex items-center space-x-2 bg-white/10 text-white font-bold py-2 px-4 rounded-lg hover:bg-white/20 transition-colors"
                         >
                             <ChevronLeftIcon className="w-5 h-5" />
                             <span>Back to History</span>
@@ -169,18 +169,18 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
                 </div>
 
                 {onTestGenerated && (
-                    <div className="bg-white dark:bg-gray-900 rounded-xl border border-slate-200 dark:border-gray-800 p-4 space-y-4">
+                    <div className="bg-brand-lilac/5 border border-brand-lavender/20 rounded-xl p-4 space-y-4 backdrop-blur-sm">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-2">
-                                <span className="font-semibold text-slate-900 dark:text-white">Filter:</span>
+                                <span className="font-semibold text-white">Filter:</span>
                                 {(['all', 'incorrect', 'unattempted'] as Filter[]).map(filter => (
                                     <button
                                         key={filter}
                                         onClick={() => setActiveFilter(filter)}
                                         className={`px-3 py-1 text-sm font-semibold rounded-full capitalize transition-colors ${
                                             activeFilter === filter
-                                            ? 'bg-purple-600 text-white'
-                                            : 'bg-slate-200 dark:bg-gray-700 text-slate-700 dark:text-gray-300 hover:bg-slate-300 dark:hover:bg-gray-600'
+                                            ? 'bg-brand-violet text-white'
+                                            : 'bg-black/20 text-white/80 hover:bg-white/10'
                                         }`}
                                     >
                                         {filter}
@@ -189,7 +189,7 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
                             </div>
                             <button
                                 onClick={() => setShowAdaptiveModal(true)}
-                                className="bg-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-500 transition-colors"
+                                className="bg-brand-violet text-white font-bold py-2 px-4 rounded-lg hover:bg-brand-lavender hover:text-brand-indigo transition-colors"
                             >
                                 Build an Adaptive Test
                             </button>
@@ -199,7 +199,7 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
 
 
                 {filteredQuestions.length === 0 && (
-                    <div className="text-center text-slate-500 dark:text-gray-400 py-8">
+                    <div className="text-center text-white/60 py-8">
                         <p>No questions match the current filter.</p>
                     </div>
                 )}
@@ -221,14 +221,14 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
                     const shouldShowCorrectAnswer = isCorrect || !!visibleAnswers[questionId];
 
                     return (
-                        <div key={q.id} className="bg-white dark:bg-gray-900 rounded-xl border border-slate-200 dark:border-gray-800 p-6 md:p-8">
+                        <div key={q.id} className="bg-black/20 border border-brand-lavender/20 rounded-xl p-6 md:p-8">
                             <div className="flex justify-between items-start mb-2">
-                                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Question {q.id}</h3>
-                                {status === 'correct' && <span className="flex items-center space-x-2 text-sm font-medium bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 px-3 py-1 rounded-full"><CheckCircleIcon className="w-5 h-5" /><span>Correct</span></span>}
-                                {status === 'incorrect' && <span className="flex items-center space-x-2 text-sm font-medium bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 px-3 py-1 rounded-full"><XCircleIcon className="w-5 h-5" /><span>Incorrect</span></span>}
-                                {status === 'unattempted' && <span className="flex items-center space-x-2 text-sm font-medium bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300 px-3 py-1 rounded-full"><MinusCircleIcon className="w-5 h-5" /><span>Unattempted</span></span>}
+                                <h3 className="text-lg font-semibold text-white">Question {q.id}</h3>
+                                {status === 'correct' && <span className="flex items-center space-x-2 text-sm font-medium bg-green-900/50 text-green-300 px-3 py-1 rounded-full"><CheckCircleIcon className="w-5 h-5" /><span>Correct</span></span>}
+                                {status === 'incorrect' && <span className="flex items-center space-x-2 text-sm font-medium bg-red-900/50 text-red-300 px-3 py-1 rounded-full"><XCircleIcon className="w-5 h-5" /><span>Incorrect</span></span>}
+                                {status === 'unattempted' && <span className="flex items-center space-x-2 text-sm font-medium bg-yellow-900/50 text-yellow-300 px-3 py-1 rounded-full"><MinusCircleIcon className="w-5 h-5" /><span>Unattempted</span></span>}
                             </div>
-                             <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">Topic: {q.topic}</p>
+                             <p className="text-sm text-white/60 mb-4">Topic: {q.topic}</p>
                             
                             <QuestionTextRenderer 
                                 text={q.questionText} 
@@ -248,20 +248,20 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
 
                                     if (isUserChoice) {
                                         if (isCorrect) {
-                                            optionClasses += 'bg-green-50 dark:bg-green-600/10 border-green-500 ring-2 ring-green-500';
+                                            optionClasses += 'bg-green-600/10 border-green-500 ring-2 ring-green-500';
                                         } else {
-                                            optionClasses += 'bg-red-50 dark:bg-red-600/10 border-red-500';
+                                            optionClasses += 'bg-red-600/10 border-red-500';
                                         }
                                     } else if (isTheCorrectAnswer && shouldShowCorrectAnswer) {
-                                        optionClasses += 'bg-green-50 dark:bg-green-600/10 border-green-500';
+                                        optionClasses += 'bg-green-600/10 border-green-500';
                                     } else {
-                                        optionClasses += 'bg-slate-50 dark:bg-gray-800 border-slate-200 dark:border-gray-700';
+                                        optionClasses += 'bg-black/20 border-brand-lavender/30';
                                     }
                                     
                                     return (
                                         <div key={opt.letter} className={optionClasses}>
-                                            <span className={`font-bold mr-3 text-purple-600 dark:text-purple-400 ${isStruckOut ? 'line-through text-gray-500' : ''}`}>{opt.letter}.</span>
-                                            <span className={`text-slate-800 dark:text-gray-200 ${isStruckOut ? 'line-through text-gray-500' : ''}`}>{opt.text}</span>
+                                            <span className={`font-bold mr-3 text-brand-lavender ${isStruckOut ? 'line-through text-white/50' : ''}`}>{opt.letter}.</span>
+                                            <span className={`text-white/90 ${isStruckOut ? 'line-through text-white/50' : ''}`}>{opt.text}</span>
                                         </div>
                                     );
                                 })}
@@ -271,7 +271,7 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
                                 {(status === 'incorrect' || status === 'unattempted') && !visibleAnswers[questionId] && (
                                     <button
                                         onClick={() => handleShowAnswer(questionId)}
-                                        className="inline-flex items-center justify-center bg-slate-200 dark:bg-gray-700 text-slate-800 dark:text-white font-semibold py-2 px-4 rounded-lg hover:bg-slate-300 dark:hover:bg-gray-600 transition-colors"
+                                        className="inline-flex items-center justify-center bg-white/10 text-white font-semibold py-2 px-4 rounded-lg hover:bg-white/20 transition-colors"
                                     >
                                         <span>Show Answer</span>
                                     </button>
@@ -279,7 +279,7 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
                                 <button
                                     onClick={() => toggleExplanation(questionId)}
                                     disabled={isLoadingExplanation}
-                                    className="inline-flex items-center justify-center space-x-2 bg-slate-200 dark:bg-gray-700 text-slate-800 dark:text-white font-semibold py-2 px-4 rounded-lg hover:bg-slate-300 dark:hover:bg-gray-600 transition-colors disabled:bg-slate-100 dark:disabled:bg-gray-700 disabled:cursor-wait"
+                                    className="inline-flex items-center justify-center space-x-2 bg-white/10 text-white font-semibold py-2 px-4 rounded-lg hover:bg-white/20 transition-colors disabled:bg-white/5 disabled:cursor-wait"
                                 >
                                     {isLoadingExplanation && <SpinnerIcon className="w-5 h-5" />}
                                     <span>{isLoadingExplanation ? 'Loading...' : (visibleExplanations[questionId] ? 'Hide Explanation' : 'Show Explanation')}</span>
@@ -287,9 +287,9 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
                             </div>
                             
                             {visibleExplanations[questionId] && (
-                                <div className="mt-4 pt-4 border-t border-slate-200 dark:border-gray-700">
+                                <div className="mt-4 pt-4 border-t border-brand-lavender/20">
                                     {errorStates[questionId] && (
-                                        <div className="p-3 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-300 rounded-lg flex items-center space-x-2">
+                                        <div className="p-3 bg-red-900/50 border border-red-700 text-red-300 rounded-lg flex items-center space-x-2">
                                             <ErrorIcon className="w-5 h-5" />
                                             <span>{errorStates[questionId]}</span>
                                         </div>
@@ -301,14 +301,14 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
                                                     <button
                                                         onClick={() => handleSpeak(questionId)}
                                                         disabled={speakingState[questionId] === 'speaking'}
-                                                        className="p-2 rounded-full text-slate-500 dark:text-gray-400 hover:bg-slate-200 dark:hover:bg-gray-700 hover:text-slate-800 dark:hover:text-white transition-colors disabled:opacity-50 disabled:cursor-wait"
+                                                        className="p-2 rounded-full text-white/60 hover:bg-white/10 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-wait"
                                                         title="Read explanation aloud"
                                                     >
                                                         {speakingState[questionId] === 'speaking' ? <SpinnerIcon className="w-5 h-5" /> : <SpeakerIcon className="w-5 h-5" />}
                                                     </button>
                                                 </div>
                                             )}
-                                            {speakingState[questionId] === 'error' && <p className="text-xs text-red-500 dark:text-red-400 text-right mb-2">Could not play audio.</p>}
+                                            {speakingState[questionId] === 'error' && <p className="text-xs text-red-400 text-right mb-2">Could not play audio.</p>}
                                             <MarkdownRenderer content={explanations[questionId]} />
                                         </>
                                     )}
