@@ -1,5 +1,4 @@
 
-
 import React, { useState, useCallback, useEffect } from 'react';
 import { generateSatAssignment, generateTargetedPracticeTest, generateFromText } from '@/services/geminiService';
 import { saveAssignment, checkForPausedAssignment, getAssignmentDetails, deleteAssignment } from '@/services/assignmentService';
@@ -561,16 +560,13 @@ const PracticePage: React.FC<PracticePageProps> = ({
         
         return (
             <div className="space-y-8">
-                {userProfile && (
-                    <div className="pt-8">
+                <div className="bg-brand-lilac/5 border border-brand-lavender/20 rounded-2xl p-8 backdrop-blur-xl space-y-8">
+                    {userProfile && (
                         <TestCounter
                             testsTakenToday={userProfile.testsTakenToday}
                             dailyTestLimit={userProfile.dailyTestLimit}
                         />
-                    </div>
-                )}
-                
-                <div className="bg-brand-lilac/5 border border-brand-lavender/20 rounded-2xl p-8 backdrop-blur-xl space-y-8">
+                    )}
                     <div className="text-left">
                         <h3 className="text-lg font-semibold text-white mb-1">Upload Your Questions</h3>
                         <p className="text-sm text-white/70">
