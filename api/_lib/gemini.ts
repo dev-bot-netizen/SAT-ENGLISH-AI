@@ -36,12 +36,25 @@ const stringToGenerativePart = (text: string): Part => {
 
 const getAnswerChoice = async (imagePart: Part, contextParts: Part[]): Promise<string> => {
     const ai = getAiClient();
-    const prompt = `You are an expert SAT English tutor. Analyze the SAT English question in the user-provided image, using the additional documents for context on question style and format. Identify the correct multiple-choice answer. Respond with ONLY a JSON object containing the letter of the correct answer, like {"answer": "A"}. Do not provide any other text or explanation.`;
+    const systemInstruction = `You are a high-accuracy, highly deterministic analytical engine trained specifically to solve SAT English (Reading and Writing) questions. Your sole function is to identify the single correct multiple-choice answer from the provided image.
+
+**PROCESS MANDATE (Internal Analysis Requirement):**
+Before generating the final output, you must perform a comprehensive, step-by-step analysis of the question.
+1. Analyze the user-provided image (screenshot), identifying the core task (e.g., grammar rule, rhetorical purpose, evidence location).
+2. Locate and interpret the required textual evidence and context within the passage displayed.
+3. Rigorously evaluate each option against the evidence and SAT content rules.
+4. Eliminate distractors based on objective rules and evidence contradiction.
+5. Select the final, best-supported answer.
+
+**OUTPUT REQUIREMENT:**
+Your final response MUST be a valid JSON object matching the defined schema. You MUST NOT include any conversational text, introductory phrases, or justifications outside of the JSON object.`;
+    const userPrompt = `Analyze the SAT English question in the user-provided image. Identify the correct multiple-choice answer. Respond with ONLY the required JSON object.`;
     
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-pro',
-        contents: [{ role: 'user', parts: [{ text: prompt }, imagePart, ...contextParts] }],
+        model: 'gemini-2.5-flash',
+        contents: [{ role: 'user', parts: [{ text: userPrompt }, imagePart, ...contextParts] }],
         config: {
+            systemInstruction: systemInstruction,
             responseMimeType: "application/json",
             responseSchema: {
                 type: Type.OBJECT,
@@ -74,20 +87,30 @@ const getAnswerChoice = async (imagePart: Part, contextParts: Part[]): Promise<s
 
 const getExplanation = async (imagePart: Part, correctAnswer: string, contextParts: Part[]): Promise<string> => {
     const ai = getAiClient();
-    const prompt = `You are an expert SAT English tutor. A student has identified that the correct answer to the SAT English question in the image is **${correctAnswer}**. 
+    const systemInstruction = `You are an authoritative and systematic SAT English tutor. Your task is to provide a comprehensive, step-by-step pedagogical explanation for a student, justifying a pre-identified correct answer for the provided SAT question image.
+
+**TONE AND BIAS MITIGATION:**
+Your tone must be highly formal, instructional, and encouraging. Crucially, you MUST maintain absolute objectivity. Ground your entire explanation solely in the specific textual evidence, vocabulary definitions, or grammatical/rhetorical rules applicable to the SAT question format.
+
+**FORMAT MANDATE:**
+You must adhere strictly to the following three-part structure and use Markdown formatting for all required elements:
+1. Start with the bolded confirmation text: **The final answer is ${correctAnswer}**
+2. Follow with the bolded heading: **Step-by-step explanation:**
+3. Provide a clear, logical explanation broken down into numbered steps (1., 2., 3., etc.). Your steps should be:
+    1.  **Analyze the Question:** Define the specific SAT concept being tested (e.g., rhetorical purpose, comma splice, modifier error) by analyzing the image context.
+    2.  **Locate Supporting Evidence:** Pinpoint the exact text in the passage/sentence that serves as the factual basis for the correct answer.
+    3.  **Evaluate Choice ${correctAnswer}:** Explain the specific rule or principle that Choice ${correctAnswer} correctly satisfies (e.g., Choice C correctly uses the semicolon to separate two independent clauses).
+    4.  **Eliminate Distractors:** Systematically explain why other options fail to meet the requirements (e.g., Option A introduces a pronoun-antecedent disagreement; Option B is stylistically redundant).
+    5.  **Conclusion:** Summarize the primary reason Choice ${correctAnswer} is the most logically and structurally sound option.`;
     
-Your task is to act as a tutor and provide a comprehensive, step-by-step explanation for *why* **${correctAnswer}** is the correct choice. Use the provided documents as examples of the style and tone for your explanation.
-
-**Response format requirements:**
-1.  Start by confirming the answer with the text: "**The final answer is ${correctAnswer}**"
-2.  Follow this with a heading: "**Step-by-step explanation:**"
-3.  Provide a clear, logical, and easy-to-follow explanation broken down into numbered steps.
-
-Now, analyze the question in the image and provide your detailed explanation for answer **${correctAnswer}**.`;
+    const userPrompt = `A student has identified that the correct answer to the SAT English question in the image is **${correctAnswer}**. Your task is to act as a tutor and provide a comprehensive, step-by-step explanation for *why* **${correctAnswer}** is the correct choice.`;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-pro',
-        contents: [{ role: 'user', parts: [{ text: prompt }, imagePart, ...contextParts] }],
+        model: 'gemini-2.5-flash',
+        contents: [{ role: 'user', parts: [{ text: userPrompt }, imagePart, ...contextParts] }],
+        config: {
+            systemInstruction: systemInstruction,
+        },
     });
 
     const explanationText = response.text;
@@ -442,7 +465,7 @@ Your task is to provide a comprehensive, step-by-step explanation for why **${qu
 3.  Provide clear, bulleted explanations for both the correct answer and the incorrect ones. For example: "* **Correct (A):** [Explanation] * **Incorrect (B):** [Explanation]"`;
     
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-pro',
+        model: 'gemini-2.5-flash',
         contents: [{ role: 'user', parts: [{ text: prompt }, sampleFilePart] }],
     });
     
@@ -457,7 +480,7 @@ const getQuestionSummary = async (imageParts: Part[]): Promise<string> => {
     const prompt = `You are an expert SAT English tutor. You are given one or more images of SAT English questions. Analyze them and provide a concise, 2-4 word summary of the primary skills or topics being tested (e.g., 'Rhetoric & Punctuation', 'Vocabulary in Context', 'Sentence Structure', 'Cross-Text Analysis'). Respond ONLY with a JSON object containing the summary, like {"summary": "Your Summary Here"}. Do not provide any other text or explanation.`;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-pro',
+        model: 'gemini-2.5-flash',
         contents: [{ role: 'user', parts: [{ text: prompt }, ...imageParts] }],
         config: {
             responseMimeType: "application/json",
@@ -831,7 +854,7 @@ Ensure a good variety between the two question types in the generated quiz.`;
     };
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-pro',
+        model: 'gemini-2.5-flash',
         contents: `${userPrompt} \n\nHere is the full data for context: ${JSON.stringify(words)}`,
         config: {
             systemInstruction,
@@ -880,7 +903,7 @@ Is the student's definition correct? Provide brief, encouraging feedback.
     };
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-pro',
+        model: 'gemini-2.5-flash',
         contents: userPrompt,
         config: {
             systemInstruction,
@@ -922,7 +945,7 @@ const generateWordDetails = async (word: string, context: string): Promise<WordD
     };
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-pro',
+        model: 'gemini-2.5-flash',
         contents: userPrompt,
         config: {
             systemInstruction: systemInstruction,
