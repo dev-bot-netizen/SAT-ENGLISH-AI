@@ -13,6 +13,7 @@ import { ChevronLeftIcon } from '@/components/icons/ChevronLeftIcon';
 import AdaptiveTestModal from './AdaptiveTestModal';
 import { SpeakerIcon } from '../icons/SpeakerIcon';
 import { getSpeechAudio } from '@/services/ttsService';
+import { BookOpenIcon } from '../icons/BookOpenIcon';
 
 type Filter = 'all' | 'incorrect' | 'unattempted';
 
@@ -47,6 +48,12 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
     const [activeFilter, setActiveFilter] = useState<Filter>('all');
     const [showAdaptiveModal, setShowAdaptiveModal] = useState(false);
     const [speakingState, setSpeakingState] = useState<{ [key: number]: 'speaking' | 'error' | 'idle' }>({});
+
+    const colorClassMap = {
+        yellow: 'border-yellow-400',
+        pink: 'border-pink-400',
+        cyan: 'border-cyan-400',
+    };
 
     const filteredQuestions = useMemo(() => {
         return questions.filter(q => {
@@ -212,6 +219,7 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
                     const isExplanationReady = !!explanations[questionId];
                     const isLoadingExplanation = loadingStates[questionId] || (!isExplanationReady && visibleExplanations[questionId]);
                     const questionHighlights = highlights[questionId] || [];
+                    const notes = questionHighlights.filter(h => h.note && h.note.trim() !== '');
                     
                     let status: 'correct' | 'incorrect' | 'unattempted' = 'unattempted';
                     if (isAttempted) {
@@ -236,6 +244,25 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
                                 isHighlightMode={true}
                                 onHighlightClick={() => {}}
                             />
+
+                            {notes.length > 0 && (
+                                <div className="mt-6 mb-6 pt-4 border-t border-brand-lavender/20">
+                                    <h4 className="text-md font-semibold text-white mb-3 flex items-center space-x-2">
+                                        <BookOpenIcon className="w-5 h-5 text-brand-lavender" />
+                                        <span>Your Notes</span>
+                                    </h4>
+                                    <div className="space-y-3">
+                                        {notes.map(h => (
+                                            <div key={h.id} className="bg-black/30 p-3 rounded-lg">
+                                                <blockquote className={`border-l-4 ${colorClassMap[h.color]} pl-3 text-white/70 text-sm italic mb-2`}>
+                                                    "{h.text}"
+                                                </blockquote>
+                                                <p className="text-sm text-white/90 whitespace-pre-wrap">{h.note}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                             
                             <div className="space-y-3 mb-6">
                                 {q.options.map(opt => {
