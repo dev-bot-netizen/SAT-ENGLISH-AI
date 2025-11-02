@@ -39,7 +39,7 @@ const getAnswerChoice = async (imagePart: Part, contextParts: Part[]): Promise<s
     const prompt = `You are an expert SAT English tutor. Analyze the SAT English question in the user-provided image, using the additional documents for context on question style and format. Identify the correct multiple-choice answer. Respond with ONLY a JSON object containing the letter of the correct answer, like {"answer": "A"}. Do not provide any other text or explanation.`;
     
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.5-pro',
         contents: [{ role: 'user', parts: [{ text: prompt }, imagePart, ...contextParts] }],
         config: {
             responseMimeType: "application/json",
@@ -86,7 +86,7 @@ Your task is to act as a tutor and provide a comprehensive, step-by-step explana
 Now, analyze the question in the image and provide your detailed explanation for answer **${correctAnswer}**.`;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.5-pro',
         contents: [{ role: 'user', parts: [{ text: prompt }, imagePart, ...contextParts] }],
     });
 
@@ -442,7 +442,7 @@ Your task is to provide a comprehensive, step-by-step explanation for why **${qu
 3.  Provide clear, bulleted explanations for both the correct answer and the incorrect ones. For example: "* **Correct (A):** [Explanation] * **Incorrect (B):** [Explanation]"`;
     
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.5-pro',
         contents: [{ role: 'user', parts: [{ text: prompt }, sampleFilePart] }],
     });
     
@@ -457,7 +457,7 @@ const getQuestionSummary = async (imageParts: Part[]): Promise<string> => {
     const prompt = `You are an expert SAT English tutor. You are given one or more images of SAT English questions. Analyze them and provide a concise, 2-4 word summary of the primary skills or topics being tested (e.g., 'Rhetoric & Punctuation', 'Vocabulary in Context', 'Sentence Structure', 'Cross-Text Analysis'). Respond ONLY with a JSON object containing the summary, like {"summary": "Your Summary Here"}. Do not provide any other text or explanation.`;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.5-pro',
         contents: [{ role: 'user', parts: [{ text: prompt }, ...imageParts] }],
         config: {
             responseMimeType: "application/json",
@@ -831,7 +831,7 @@ Ensure a good variety between the two question types in the generated quiz.`;
     };
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.5-pro',
         contents: `${userPrompt} \n\nHere is the full data for context: ${JSON.stringify(words)}`,
         config: {
             systemInstruction,
@@ -880,7 +880,7 @@ Is the student's definition correct? Provide brief, encouraging feedback.
     };
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.5-pro',
         contents: userPrompt,
         config: {
             systemInstruction,
@@ -922,7 +922,7 @@ const generateWordDetails = async (word: string, context: string): Promise<WordD
     };
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.5-pro',
         contents: userPrompt,
         config: {
             systemInstruction: systemInstruction,
