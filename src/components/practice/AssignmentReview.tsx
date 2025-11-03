@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import type { Question, Highlight, UserProfile } from '@/types';
+import type { Question, UserProfile } from '@/types';
 import { getQuestionExplanation } from '@/services/geminiService';
 import AssignmentResults from './AssignmentResults';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
