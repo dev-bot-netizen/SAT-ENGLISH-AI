@@ -31,24 +31,24 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             onClick={onClose}
         >
             <div 
-                className="max-w-md w-full bg-gray-900 border border-gray-700 rounded-xl p-8 text-center shadow-2xl"
+                className="max-w-md w-full bg-brand-indigo border border-brand-lavender/20 rounded-xl p-8 text-center shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
-                <AlertTriangleIcon className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+                <AlertTriangleIcon className="w-12 h-12 text-brand-lavender mx-auto mb-4" />
                 <h2 id="confirmation-title" className="text-2xl font-bold text-white mb-2">{title}</h2>
-                <p className="text-gray-400 mb-6">
+                <p className="text-white/70 mb-6">
                     {message}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                     <button
                         onClick={onClose}
-                        className="w-full bg-gray-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-gray-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                        className="w-full bg-white/10 text-white font-bold py-3 px-4 rounded-lg hover:bg-white/20 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-brand-lavender focus:ring-offset-2 focus:ring-offset-brand-indigo"
                     >
                         {cancelText}
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="w-full bg-purple-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-purple-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                        className="w-full bg-brand-violet text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-lavender hover:text-brand-indigo transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-brand-lavender focus:ring-offset-2 focus:ring-offset-brand-indigo"
                     >
                         {confirmText}
                     </button>
