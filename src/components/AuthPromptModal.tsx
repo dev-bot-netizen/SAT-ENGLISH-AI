@@ -20,20 +20,20 @@ const AuthPromptModal: React.FC<AuthPromptModalProps> = ({ isOpen, onClose, onAu
             aria-labelledby="auth-prompt-title"
         >
             <div
-                className="bg-white dark:bg-gray-900 rounded-xl border border-slate-200 dark:border-gray-800 w-full max-w-md text-center p-8 relative shadow-2xl"
+                className="bg-brand-indigo rounded-xl border border-brand-lavender/20 w-full max-w-md text-center p-8 relative shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
-                <button onClick={onClose} className="absolute top-4 right-4 p-1 rounded-full text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-slate-800 dark:hover:text-white transition-colors" aria-label="Close">
+                <button onClick={onClose} className="absolute top-4 right-4 p-1 rounded-full text-white/60 hover:bg-white/10 hover:text-white transition-colors" aria-label="Close">
                     <XIcon className="w-6 h-6" />
                 </button>
-                <LockIcon className="w-12 h-12 text-purple-500 dark:text-purple-400 mx-auto mb-4" />
-                <h2 id="auth-prompt-title" className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Feature Locked</h2>
-                <p className="text-slate-600 dark:text-gray-400 mb-6">
+                <LockIcon className="w-12 h-12 text-brand-lavender mx-auto mb-4" />
+                <h2 id="auth-prompt-title" className="text-2xl font-bold text-white mb-2">Feature Locked</h2>
+                <p className="text-white/70 mb-6">
                     Please sign in or create an account to use this feature and save your progress.
                 </p>
                 <button
                     onClick={onAuthRedirect}
-                    className="w-full bg-purple-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-purple-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
+                    className="w-full bg-brand-violet text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-lavender hover:text-brand-indigo transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-brand-lavender focus:ring-offset-2 focus:ring-offset-brand-indigo"
                 >
                     Sign In or Sign Up
                 </button>
