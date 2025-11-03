@@ -36,7 +36,7 @@ const steps: Step[] = [
         title: 'Welcome to SAT Solver AI!',
         description: "Let's take a quick tour of your new AI-powered tutor for the SAT English section.",
         page: 'solver',
-        icon: <SparklesIcon className="w-16 h-16 text-purple-400" />,
+        icon: <SparklesIcon className="w-16 h-16 text-brand-lavender" />,
         position: 'bottom',
     },
     {
@@ -44,7 +44,7 @@ const steps: Step[] = [
         title: 'The AI Solver',
         description: "Stuck on a tough question? Upload a screenshot, and our AI will provide a detailed, step-by-step explanation.",
         page: 'solver',
-        icon: <AcademicCapIcon className="w-16 h-16 text-purple-400" />,
+        icon: <AcademicCapIcon className="w-16 h-16 text-brand-lavender" />,
         position: 'bottom',
     },
     {
@@ -52,7 +52,7 @@ const steps: Step[] = [
         title: 'Listen to Explanations',
         description: "After you solve a question, the explanation will appear here. Premium users can even use the Text-to-Speech button to have it read aloud.",
         page: 'solver',
-        icon: <SpeakerIcon className="w-16 h-16 text-purple-400" />,
+        icon: <SpeakerIcon className="w-16 h-16 text-brand-lavender" />,
         position: 'top',
     },
     {
@@ -60,7 +60,7 @@ const steps: Step[] = [
         title: 'The Practice Hub',
         description: "Ready to test your skills? The 'Practice' tab is your gateway to generating customized tests.",
         page: 'solver',
-        icon: <PencilIcon className="w-16 h-16 text-purple-400" />,
+        icon: <PencilIcon className="w-16 h-16 text-brand-lavender" />,
         position: 'bottom',
     },
     {
@@ -68,7 +68,7 @@ const steps: Step[] = [
         title: 'Targeted Practice',
         description: "Use 'Targeted Practice' to create a test from screenshots of questions you've struggled with.",
         page: 'practice',
-        icon: <TargetIcon className="w-16 h-16 text-purple-400" />,
+        icon: <TargetIcon className="w-16 h-16 text-brand-lavender" />,
         position: 'bottom',
     },
      {
@@ -76,7 +76,7 @@ const steps: Step[] = [
         title: 'Practice from Any Text',
         description: "With our Premium 'Text Practice' feature, you can paste any text and have the AI generate a quiz from it instantly.",
         page: 'practice',
-        icon: <DocumentTextIcon className="w-16 h-16 text-purple-400" />,
+        icon: <DocumentTextIcon className="w-16 h-16 text-brand-lavender" />,
         position: 'bottom',
     },
     {
@@ -84,7 +84,7 @@ const steps: Step[] = [
         title: 'Track Your Progress',
         description: "All your completed tests are saved in 'History'. Review your answers and watch your skills grow.",
         page: 'practice', 
-        icon: <ClockIcon className="w-16 h-16 text-purple-400" />,
+        icon: <ClockIcon className="w-16 h-16 text-brand-lavender" />,
         position: 'bottom',
     },
     {
@@ -92,7 +92,7 @@ const steps: Step[] = [
         title: 'Build Your Vocabulary',
         description: "Challenging words from tests are saved here. Let's check out the Premium flashcard trainer.",
         page: 'history',
-        icon: <BookOpenIcon className="w-16 h-16 text-purple-400" />,
+        icon: <BookOpenIcon className="w-16 h-16 text-brand-lavender" />,
         position: 'bottom',
     },
     {
@@ -100,7 +100,7 @@ const steps: Step[] = [
         title: 'Spaced Repetition Flashcards',
         description: "Here you can start a study session with flashcards. The system uses spaced repetition to show you words at the perfect time to maximize retention.",
         page: 'vocabulary',
-        icon: <RectangleStackIcon className="w-16 h-16 text-purple-400" />,
+        icon: <RectangleStackIcon className="w-16 h-16 text-brand-lavender" />,
         position: 'bottom',
     },
     {
@@ -108,7 +108,7 @@ const steps: Step[] = [
         title: "You're All Set!",
         description: "You're ready to start your journey to a higher SAT score. Good luck!",
         page: 'solver',
-        icon: <CheckBadgeIcon className="w-16 h-16 text-purple-400" />,
+        icon: <CheckBadgeIcon className="w-16 h-16 text-brand-lavender" />,
         position: 'bottom',
     }
 ];
@@ -287,7 +287,7 @@ const Walkthrough: React.FC<WalkthroughProps> = ({ isOpen, onFinish, currentPage
            
             <div
                 ref={tooltipRef}
-                className="absolute bg-gray-900 rounded-xl border border-gray-800 w-full max-w-sm text-center p-6 shadow-2xl flex flex-col items-center transition-all duration-300 ease-in-out"
+                className="absolute bg-brand-indigo rounded-xl border border-brand-lavender/20 w-full max-w-sm text-center p-6 shadow-2xl flex flex-col items-center transition-all duration-300 ease-in-out"
                 style={{
                     ...tooltipStyle,
                     opacity: isPositioned ? 1 : 0,
@@ -299,11 +299,11 @@ const Walkthrough: React.FC<WalkthroughProps> = ({ isOpen, onFinish, currentPage
                  <div className="mb-4">{step.icon}</div>
                 
                 <h2 id="walkthrough-title" className="text-xl font-bold text-white mb-2">{step.title}</h2>
-                <p className="text-gray-400 mb-6 text-sm min-h-[3rem]">{step.description}</p>
+                <p className="text-white/70 mb-6 text-sm min-h-[3rem]">{step.description}</p>
                 
                 <div className="flex items-center justify-center space-x-2 mb-6">
                     {steps.map((_, index) => (
-                        <div key={index} className={`w-2 h-2 rounded-full transition-colors ${index === currentStep ? 'bg-purple-500' : 'bg-gray-600'}`}></div>
+                        <div key={index} className={`w-2 h-2 rounded-full transition-colors ${index === currentStep ? 'bg-brand-lavender' : 'bg-white/20'}`}></div>
                     ))}
                 </div>
 
@@ -311,7 +311,7 @@ const Walkthrough: React.FC<WalkthroughProps> = ({ isOpen, onFinish, currentPage
                     <button
                         onClick={handlePrev}
                         disabled={currentStep === 0}
-                        className="inline-flex items-center space-x-2 bg-gray-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="inline-flex items-center space-x-2 bg-white/10 text-white font-bold py-2 px-4 rounded-lg hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                         <ChevronLeftIcon className="w-5 h-5" />
                         <span>Prev</span>
@@ -319,7 +319,7 @@ const Walkthrough: React.FC<WalkthroughProps> = ({ isOpen, onFinish, currentPage
 
                     <button
                         onClick={handleNext}
-                        className="inline-flex items-center space-x-2 bg-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-500 transition-colors"
+                        className="inline-flex items-center space-x-2 bg-brand-violet text-white font-bold py-2 px-4 rounded-lg hover:bg-brand-lavender hover:text-brand-indigo transition-colors"
                     >
                         <span>{currentStep === steps.length - 1 ? "Get Started" : "Next"}</span>
                         {currentStep < steps.length - 1 && <ChevronRightIcon className="w-5 h-5" />}
