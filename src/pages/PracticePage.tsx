@@ -1,4 +1,5 @@
 
+
 import React, { useState, useCallback, useEffect } from 'react';
 import { generateSatAssignment, generateTargetedPracticeTest, generateFromText } from '@/services/geminiService';
 import { saveAssignment, checkForPausedAssignment, getAssignmentDetails, deleteAssignment } from '@/services/assignmentService';
@@ -757,8 +758,6 @@ const PracticePage: React.FC<PracticePageProps> = ({
                         questions={questions}
                         userAnswers={userAnswers}
                         onRestart={resetTestState}
-                        highlights={highlights}
-                        strikethroughs={strikethroughs}
                         onTestGenerated={onTestGenerated}
                         userProfile={userProfile}
                     />
