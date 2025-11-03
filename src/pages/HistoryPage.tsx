@@ -166,8 +166,6 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ user, isGuest, onResumeAssign
                 score={selectedAssignment.score}
                 questions={selectedAssignment.questions}
                 userAnswers={selectedAssignment.userAnswers}
-                highlights={selectedAssignment.highlights}
-                strikethroughs={selectedAssignment.strikethroughs || {}}
                 onBack={() => {
                     setSelectedAssignment(null);
                     // No need to refetch, just go back to the list
