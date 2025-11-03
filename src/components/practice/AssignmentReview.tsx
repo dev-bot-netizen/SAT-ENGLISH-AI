@@ -20,8 +20,6 @@ interface AssignmentReviewProps {
     questions: Question[];
     userAnswers: Record<number, string>;
     score: number;
-    highlights: Record<number, Highlight[]>;
-    strikethroughs: Record<number, string[]>;
     onRestart?: () => void;
     onBack?: () => void;
     onTestGenerated?: (questions: Question[]) => void;
@@ -33,8 +31,6 @@ const AssignmentReview: React.FC<AssignmentReviewProps> = ({
     userAnswers, 
     score, 
     onRestart, 
-    highlights, 
-    strikethroughs, 
     onBack, 
     onTestGenerated, 
     userProfile 
