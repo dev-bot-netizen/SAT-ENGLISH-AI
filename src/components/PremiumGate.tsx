@@ -26,11 +26,11 @@ const PremiumGate: React.FC<PremiumGateProps> = ({ userProfile, isGuest, onUpgra
             <div className="flex flex-col items-center">
                 <LockIcon className="w-10 h-10 text-brand-lavender mb-4" />
                 <h3 className="text-xl font-bold text-white mb-2">{featureName}</h3>
-                <p className="text-white/70 mb-4 max-w-sm">
-                    {isGuest 
-                        ? "Please sign up or sign in to access this feature."
-                        : "This feature is not available on your current plan."}
-                </p>
+                {isGuest && (
+                    <p className="text-white/70 mb-4 max-w-sm">
+                        Please sign up or sign in to access this feature.
+                    </p>
+                )}
                 {isGuest && (
                     <button
                         onClick={handleAccessClick}
