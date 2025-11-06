@@ -1,13 +1,10 @@
-
 import React from 'react';
-import { StarIcon } from './icons/StarIcon';
-import { CodeBracketIcon } from './icons/CodeBracketIcon';
 
 interface TierBadgeProps {
   tier: 'premium' | 'developer';
 }
 
-const TierBadge: React.FC<TierBadgeProps> = ({ tier }) => {
+const TierBadge: React.FC<TierBadgeProps> = () => {
   return null;
 };
 
