@@ -118,7 +118,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onGuestLogin, appError, setAppError
                 <p className="text-white/60 text-center mb-6">
                     {mode === 'signin'
                         ? 'Sign in to access your practice history.'
-                        : <>Sign up to save your progress and enjoy <span className="font-bold text-brand-lavender">Free Premium</span> until October 10th.</>
+                        : 'Sign up to save your progress and access all features.'
                     }
                 </p>
 
