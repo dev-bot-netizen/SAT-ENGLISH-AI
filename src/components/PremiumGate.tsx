@@ -17,14 +17,8 @@ const PremiumGate: React.FC<PremiumGateProps> = ({ userProfile, isGuest, onUpgra
         return <>{children}</>;
     }
 
-    const handleUpgradeClick = () => {
-        if (isGuest) {
-            // This will be caught by the parent component and redirect to auth page
-            onUpgradeClick(); 
-        } else {
-            // For logged-in but non-premium users
-            onUpgradeClick();
-        }
+    const handleAccessClick = () => {
+        onUpgradeClick();
     };
 
     return (
@@ -32,13 +26,19 @@ const PremiumGate: React.FC<PremiumGateProps> = ({ userProfile, isGuest, onUpgra
             <div className="flex flex-col items-center">
                 <LockIcon className="w-10 h-10 text-brand-lavender mb-4" />
                 <h3 className="text-xl font-bold text-white mb-2">{featureName}</h3>
-                <p className="text-white/70 mb-4 max-w-sm">This is a Premium feature. Sign up or upgrade your account to gain access.</p>
-                <button
-                    onClick={handleUpgradeClick}
-                    className="bg-brand-violet text-white font-bold py-2 px-5 rounded-lg hover:bg-brand-lavender hover:text-brand-indigo transition-colors"
-                >
-                    {isGuest ? 'Sign Up for Premium' : 'Upgrade to Premium'}
-                </button>
+                <p className="text-white/70 mb-4 max-w-sm">
+                    {isGuest 
+                        ? "Please sign up or sign in to access this feature."
+                        : "This feature is not available on your current plan."}
+                </p>
+                {isGuest && (
+                    <button
+                        onClick={handleAccessClick}
+                        className="bg-brand-violet text-white font-bold py-2 px-5 rounded-lg hover:bg-brand-lavender hover:text-brand-indigo transition-colors"
+                    >
+                        Sign Up or Sign In
+                    </button>
+                )}
             </div>
         </div>
     );
