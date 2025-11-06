@@ -170,7 +170,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateToApp }) => {
                         onClick={onNavigateToApp}
                         className="w-full sm:w-auto bg-brand-gold text-brand-indigo font-bold py-3 px-8 rounded-lg text-lg hover:bg-yellow-300 transition-transform hover:scale-105 duration-300"
                     >
-                        Start Free Trial
+                        Start for Free
                     </button>
                     <button
                         data-anim-hero
