@@ -1,6 +1,4 @@
 import React from 'react';
-import { SparklesIcon } from './icons/SparklesIcon';
-import { XIcon } from './icons/XIcon';
 
 interface UpgradeModalProps {
     isOpen: boolean;
@@ -9,7 +7,7 @@ interface UpgradeModalProps {
     isGuest: boolean;
 }
 
-const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onAuthRedirect, isGuest }) => {
+const UpgradeModal: React.FC<UpgradeModalProps> = () => {
     return null;
 };
 
