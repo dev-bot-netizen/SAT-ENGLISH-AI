@@ -223,7 +223,7 @@ const App: React.FC = () => {
     } catch (e) {
       const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
       if (errorMessage.includes("limit of 3 solves exceeded")) {
-          setError("You have reached your daily limit of 3 solves. Please sign in or create an account for unlimited solves.");
+          setError("You have reached your daily limit for solves. Please sign in or create an account to continue.");
           setShowAuthPrompt(true);
       } else {
           setError(`Failed to get solution: ${errorMessage}`);
