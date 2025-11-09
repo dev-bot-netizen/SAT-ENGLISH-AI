@@ -1,8 +1,21 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React from 'react';
+
+const TrustSection: React.FC = () => {
+  // The content of this section has been temporarily hidden as per your request.
+  // To restore it, simply uncomment the original JSX below and the associated imports.
+  return null;
+};
+
+export default TrustSection;
+
+/*
+// Original Imports:
+import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { StarIcon } from '@/components/icons/StarIcon';
 import BackgroundGlowWords from './BackgroundGlowWords';
 
+// Original Component Code:
 const testimonials = [
   {
     quote: "This app found my exact weak spots and made practice tests just for me. My SAT score jumped 150 points!",
@@ -36,7 +49,7 @@ const testimonials = [
   }
 ];
 
-const TrustSection: React.FC = () => {
+const OriginalTrustSection: React.FC = () => {
     const component = useRef<HTMLDivElement>(null);
     const scrollerRef = useRef<HTMLDivElement>(null);
     const scrollerWrapperRef = useRef<HTMLDivElement>(null);
@@ -134,4 +147,4 @@ const TrustSection: React.FC = () => {
     </section>
   );
 };
-export default TrustSection;
+*/
